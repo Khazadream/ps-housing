@@ -587,7 +587,7 @@ RegisterNetEvent('ps-housing:server:enterProperty', function (property_id, spawn
         Debug("Player entered property")
         return
     else
-        property:PlayerEnter(src)
+        -- property:PlayerEnter(src) -- KHAZA: Commented out to prevent players from entering properties without access on doorbell ringing
     end
 
     if not isanmlo then
