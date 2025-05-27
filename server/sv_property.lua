@@ -802,9 +802,10 @@ RegisterNetEvent("ps-housing:server:buyFurniture", function(property_id, items, 
         local item = items[i]
         if item.type == 'storage' then
             local stashName = ("property_%s"):format(propertyData.property_id)
+            local hash = GetHashKey(item.object)
             local stashConfig = Config.Shells[propertyData.shell].stash
             if not propertyData.apartment then
-                Framework[Config.Inventory].RegisterInventory(firstStorage and stashName or stashName .. item.id, 'Property: ' .. propertyData.street .. '#' .. propertyData.property_id, stashConfig)
+                Framework[Config.Inventory].RegisterInventory(stashName .. '_' .. hash, 'Property: ' .. propertyData.street .. '#' .. propertyData.property_id, stashConfig)
             else 
                Framework[Config.Inventory].RegisterInventory(firstStorage and stashName or stashName .. item.id, 'Property: ' .. propertyData.apartment .. '#' .. propertyData.property_id, stashConfig)
             end

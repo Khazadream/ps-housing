@@ -612,10 +612,11 @@ Config.FurnitureTypes = {
     ["storage"] = function(entity, property_id, shell, id)
         local stash = ("property_%s"):format(property_id)
         id = type(id) == "boolean" and stash or stash..id
-
+        local entityHash = GetEntityModel(entity)
         Framework[Config.Target].AddTargetEntity(entity, "Storage", "fas fa-box-open", function()
             local stashConfig = Config.Shells[shell].stash
-            Framework[Config.Inventory].OpenInventory('property_'..property_id, stashConfig, property_id)
+            local stashName = stash..'_'..entityHash
+            Framework[Config.Inventory].OpenInventory(stashName, stashConfig, property_id)
         end)
 
         local property = Property.Get(property_id)
