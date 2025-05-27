@@ -24,7 +24,8 @@ function Property:new(propertyData)
 
     for k, v in ipairs(propertyData.furnitures) do
         if v.type == 'storage' then
-            Framework[Config.Inventory].RegisterInventory(k == 1 and stashName or stashName..v.id, 'Property: ' ..  (propertyData.street or propertyData.apartment or 'Unknown') .. ' #'.. propertyData.property_id or propertyData.apartment or stashName, stashConfig)
+            local hash = GetHashKey(v.object)
+            Framework[Config.Inventory].RegisterInventory(stashName..'_'..hash, 'Property: ' ..  (propertyData.street or propertyData.apartment or 'Unknown') .. ' #'.. propertyData.property_id or propertyData.apartment or stashName, stashConfig)
         end
     end
 

@@ -36,6 +36,7 @@ MySQL.ready(function()
                 door_data = json.decode(v.door_data),
                 garage_data = json.decode(v.garage_data),
                 zone_data = v.zone_data,
+                isGM = v.isGM,
             }
             PropertiesTable[id] = Property:new(propertyData)
 
@@ -74,8 +75,8 @@ function RegisterProperty(propertyData, preventEnter, source)
     propertyData.garage_data = propertyData.garage_data or {}
     propertyData.zone_data = propertyData.zone_data or {}
     
-    local cols = "(owner_citizenid, street, region, description, has_access, extra_imgs, furnitures, for_sale, price, shell, apartment, door_data, garage_data, zone_data)"
-    local vals = "(@owner_citizenid, @street, @region, @description, @has_access, @extra_imgs, @furnitures, @for_sale, @price, @shell, @apartment, @door_data, @garage_data, @zone_data)"
+    local cols = "(owner_citizenid, street, region, description, has_access, extra_imgs, furnitures, for_sale, price, shell, apartment, door_data, garage_data, zone_data, isGM)"
+    local vals = "(@owner_citizenid, @street, @region, @description, @has_access, @extra_imgs, @furnitures, @for_sale, @price, @shell, @apartment, @door_data, @garage_data, @zone_data, @isGM)"
 
     local id = MySQL.insert.await("INSERT INTO properties " .. cols .. " VALUES " .. vals , {
         ["@owner_citizenid"] = propertyData.owner or nil,
@@ -92,6 +93,7 @@ function RegisterProperty(propertyData, preventEnter, source)
         ["@door_data"] = json.encode(propertyData.shell == 'mlo' and {count = #propertyData.door_data} or propertyData.door_data),
         ["@garage_data"] = json.encode(propertyData.garage_data),
         ["@zone_data"] = json.encode(propertyData.zone_data),
+        ["@isGM"] = propertyData.isGM,
     })
 
     if source and propertyData.shell == 'mlo' then
