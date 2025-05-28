@@ -808,7 +808,7 @@ RegisterNetEvent("ps-housing:server:buyFurniture", function(property_id, items, 
             if not propertyData.apartment then
                 Framework[Config.Inventory].RegisterInventory(stashName .. '_' .. hash, 'Property: ' .. propertyData.street .. '#' .. propertyData.property_id, stashConfig)
             else 
-               Framework[Config.Inventory].RegisterInventory(firstStorage and stashName or stashName .. item.id, 'Property: ' .. propertyData.apartment .. '#' .. propertyData.property_id, stashConfig)
+                Framework[Config.Inventory].RegisterInventory(firstStorage and stashName or stashName .. item.id, 'Property: ' .. propertyData.apartment .. '#' .. propertyData.property_id, stashConfig)
             end
         end
         numFurnitures = numFurnitures + 1
