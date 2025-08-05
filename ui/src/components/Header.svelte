@@ -85,7 +85,7 @@
 				$SHOWFURNITURES = { category: "All Objects", items: allFurnitureItems }
 				if ($IS_MENU_MINIMIZED) $IS_MENU_MINIMIZED = false
 			}}
-			class:selected={selected === -1}>All Objects</button
+			class:selected={selected === -1}>Tous les objets</button
 		>
 		{#each $FURNITURES as category, i}
 			<button
@@ -109,7 +109,7 @@
 				
 			}}
 			>
-			<p class="w-fit whitespace-nowrap">Owned Furniture</p>
+			<p class="w-fit whitespace-nowrap">Meubles achetés</p>
 			<span class="h-fit px-[1rem] bg-[color:var(--color-tertiary)]"
 				>{$OWNEDITEMS.length}</span
 			>

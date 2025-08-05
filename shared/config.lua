@@ -17,7 +17,7 @@ Config.Logs = "qb" -- "qb"
 Config.AccessCanEditFurniture = true
 
 -- Draw the poly for the property
-Config.DebugMode = true
+Config.DebugMode = false
 
 function Debug(...)
     if Config.DebugMode then
@@ -55,7 +55,7 @@ Config.RealtorJobNames = { -- add multiple realestate jobs that are allowed to s
 
 -- If you are utilizing qb-banking and wish for the funds to be deposited directly into the Realestate bank account, set this value to true. 
 -- In case you are using an alternative Boss Menu, replace the qb-banking export with the appropriate script export or event.
-Config.QBManagement = false
+Config.QBManagement = true
 
 -- Realtor Commisions based on job grade, the rest goes to the owner, if any.
 Config.Commissions = {
@@ -135,7 +135,7 @@ Config.Apartments = {
 
     ---ipl
     ['Modern 1 Apartment'] = {
-        label = 'Modern 1 Apartment',
+        label = 'Appartement Modern 1',
         door = { x = -771.18, y = 319.64, z = 85.66, h = 351.95, length = 1, width = 2 },
         imgs = {
             {
@@ -638,7 +638,7 @@ Config.FurnitureTypes = {
 
 Config.Furnitures = {
     {
-        category = "Prerequisites",
+        category = "Prérequis",
         items = {
             { ["object"] = "v_res_tre_storagebox", ["price"] = 0, ["label"] = "Storage Unit", ["type"] = "storage", ["max"] = 2 },
             { ["object"] = "v_res_tre_wardrobe", ["price"] = 0, ["label"] = "Wardrobe", ["type"] = "clothing", ["max"] = 2 },
@@ -646,7 +646,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Couches",
+        category = "Meubles",
         items = {
             { ["object"] = "miss_rub_couch_01", ["price"] = 300, ["label"] = "Old couch" },
             { ["object"] = "prop_fib_3b_bench", ["price"] = 700, ["label"] = "Threesits couch" },
@@ -706,7 +706,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Chairs",
+        category = "Chaises",
         items = {
             { ["object"] = "v_res_d_highchair", ["price"] = 700, ["label"] = "High chair" },
             { ["object"] = "apa_mp_h_stn_chairstrip_03", ["price"] = 500, ["label"] = "Sitchair 4" },
@@ -790,7 +790,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Storage",
+        category = "Stockage",
         items = {
             { ["object"] = "v_res_cabinet", ["price"] = 2500, ["label"] = "Cabinet Large" },
             { ["object"] = "v_res_d_dressingtable", ["price"] = 2500, ["label"] = "Dressing Table" },
@@ -853,7 +853,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Electronics",
+        category = "Électronique",
         items = {
             { ["object"] = "prop_trailr_fridge", ["price"] = 300, ["label"] = "Old Fridge" },
             { ["object"] = "v_res_fh_speaker", ["price"] = 300, ["label"] = "Speaker" },
@@ -914,7 +914,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Beds",
+        category = "Lit",
         items = {
 			{ ["object"] = "v_res_d_bed", ["price"] = 700, ["label"] = "Bed 1" },
 			{ ["object"] = "v_res_lestersbed", ["price"] = 700, ["label"] = "Bed 2" },
@@ -938,7 +938,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Lighthing",
+        category = "Éclairage",
         items = {
             { ["object"] = "v_corp_cd_desklamp", ["price"] = 100, ["label"] = "Desk Corp Lamp" },
             { ["object"] = "v_res_desklamp", ["price"] = 100, ["label"] = "Desk Lamp" },
@@ -1063,7 +1063,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Bathroom",
+        category = "Salle de bain",
         items = {
             { ["object"] = "prop_ld_toilet_01", ["price"] = 100, ["label"] = "Toilet 1" },
             { ["object"] = "prop_toilet_01", ["price"] = 100, ["label"] = "Toilet 2" },
@@ -1097,7 +1097,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Wall Decorations",
+        category = "Décoration murale",
         items = {
             { ["object"] = "apa_p_h_acc_artwalll_02", ["price"] = 1000, ["label"] = "Painting whit marks" },
             { ["object"] = "v_ind_cs_toolboard", ["price"] = 500, ["label"] = "Tools" },
@@ -1125,7 +1125,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Kitchen",
+        category = "Cuisine",
         items = {
             { ["object"] = "prop_washer_01", ["price"] = 150, ["label"] = "Washer 1" },
             { ["object"] = "prop_washer_02", ["price"] = 150, ["label"] = "Washer 2" },
@@ -1188,7 +1188,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Plants",
+        category = "Plantes",
         items = {
             { ["object"] = "prop_fib_plant_01", ["price"] = 150, ["label"] = "Plant Fib" },
             { ["object"] = "v_corp_bombplant", ["price"] = 170, ["label"] = "Plant Bomb" },
@@ -1241,7 +1241,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Detailing",
+        category = "Détail",
         items = {
             { ["object"] = "v_res_r_figcat", ["price"] = 300, ["label"] = "Fig Cat" },
 			{ ["object"] = "v_res_r_figclown", ["price"] = 300, ["label"] = "Fig Clown" },
@@ -1292,7 +1292,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Doors", -- All from Base Game.
+        category = "Portes", -- All from Base Game.
         items = {
             { ["object"] = "v_ilev_fa_frontdoor", ["price"] = 300, ["type"] = "door", ["label"] = "White Door" },
             { ["object"] = "v_ilev_247_offdorr", ["price"] = 300, ["type"] = "door", ["label"] = "24/7 Wooden Door" },
@@ -1328,7 +1328,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Walls",
+        category = "Murs",
         items = {
             { ["object"] = "ps_wall_aqua", ["price"] = 1000, ["label"] = "Aqua Wall" },
             { ["object"] = "ps_wall_black", ["price"] = 1000, ["label"] = "Black Wall" },
@@ -1343,7 +1343,7 @@ Config.Furnitures = {
     },
 
     {
-        category = "Misc",
+        category = "Divers",
         items = {
             { ["object"] = "v_corp_facebeanbag", ["price"] = 100, ["label"] = "Bean Bag 1" },
             { ["object"] = "v_res_cherubvase", ["price"] = 2500, ["label"] = "White Vase" },

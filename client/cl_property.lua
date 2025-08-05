@@ -388,13 +388,15 @@ end
 
 function Property:GiveMenus(garden)
     if not garden and not self.inProperty then return end
-
+    print("GiveMenus")
+    print(self.has_access)
+    print(Config.AccessCanEditFurniture)
     local accessAndConfig = self.has_access and Config.AccessCanEditFurniture
 
     if self.owner or accessAndConfig then
         Framework[Config.Radial].AddRadialOption(
             "furniture_menu",
-            "Furniture Menu",
+            "Gérer les meubles",
             "house",
             function()
                 Modeler:OpenMenu(self.property_id)
@@ -407,7 +409,7 @@ function Property:GiveMenus(garden)
     if self.owner and not garden then
         Framework[Config.Radial].AddRadialOption(
             "access_menu",
-            "Manage Property",
+            "Gérer les accès",
             "key",
             function()
                 self:ManageAccessMenu()
@@ -935,6 +937,11 @@ end
 
 RegisterNetEvent("ps-housing:client:enterProperty", function(property_id, spawn)
     local property = Property.Get(property_id)
+    if not property then
+        print("Property not found", property_id, spawn)
+        return
+    end
+    
     if spawn == 'spawn' then
         local data = lib.callback.await("ps-housing:cb:getMainMloDoor", false, property_id, 1)
         if not data then property:EnterShell() return end

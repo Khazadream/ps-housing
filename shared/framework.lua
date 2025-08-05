@@ -81,7 +81,7 @@ Framework.qb = {
             {
                 options = {
                     {
-                        label = "Enter Property",
+                        label = "Entrer dans la propriété",
                         icon = "fas fa-door-open",
                         action = enter,
                         canInteract = function()
@@ -90,7 +90,7 @@ Framework.qb = {
                         end,
                     },
                     {
-                        label = "Showcase Property",
+                        label = "Présenter la propriété",
                         icon = "fas fa-eye",
                         action = showcase,
                         canInteract = function()
@@ -101,7 +101,7 @@ Framework.qb = {
                         end,
                     },
                     {
-                        label = "Property Info",
+                        label = "Informations de la propriété",
                         icon = "fas fa-circle-info",
                         action = showData,
                         canInteract = function()
@@ -112,7 +112,7 @@ Framework.qb = {
                         end,
                     },
                     {
-                        label = "Ring Doorbell",
+                        label = "Sonner à la porte",
                         icon = "fas fa-bell",
                         action = enter,
                         canInteract = function()
@@ -121,7 +121,7 @@ Framework.qb = {
                         end,
                     },
                     {
-                        label = "Raid Property",
+                        label = "Raider la propriété",
                         icon = "fas fa-building-shield",
                         action = raid,
                         canInteract = function()
@@ -129,7 +129,6 @@ Framework.qb = {
                             local jobName = job.name
                             local gradeAllowed = tonumber(job.grade.level) >= Config.MinGradeToRaid
                             local onDuty = job.onduty
-
                             return PoliceJobs[jobName] and gradeAllowed and onDuty
                         end,
                     },
@@ -150,7 +149,7 @@ Framework.qb = {
         }, {
             options = {
                 {
-                    label = "Enter Apartment",
+                    label = "Entrer dans l'appartement",
                     action = enter,
                     icon = "fas fa-door-open",
                     canInteract = function()
@@ -159,12 +158,12 @@ Framework.qb = {
                     end,
                 },
                 {
-                    label = "See all apartments",
+                    label = "Voir tous les appartements",
                     icon = "fas fa-circle-info",
                     action = seeAll,
                 },
                 {
-                    label = "Raid Apartment",
+                    label = "Raider l'appartement",
                     action = seeAllToRaid,
                     icon = "fas fa-building-shield",
                     canInteract = function()
@@ -196,12 +195,12 @@ Framework.qb = {
             {
                 options = {
                     {
-                        label = "Leave Property",
+                        label = "Quitter la propriété",
                         action = leave,
                         icon = "fas fa-right-from-bracket",
                     },
                     {
-                        label = "Check Door",
+                        label = "Vérifier la porte",
                         action = checkDoor,
                         icon = "fas fa-bell",
                     },
@@ -228,7 +227,7 @@ Framework.qb = {
             {
                 options = {
                     {
-                        label = "Leave",
+                        label = "Quitter",
                         action = leave,
                         icon = "fas fa-right-from-bracket",
                     },
@@ -312,7 +311,7 @@ Framework.ox = {
             debug = Config.DebugMode,
             options = {
                 {
-                    label = "Enter Property",
+                    label = "Entrer dans la propriété",
                     icon = "fas fa-door-open",
                     onSelect = enter,
                     canInteract = function()
@@ -321,7 +320,7 @@ Framework.ox = {
                     end,
                 },
                 {
-                    label = "Showcase Property",
+                    label = "Montrer la propriété",
                     icon = "fas fa-eye",
                     onSelect = showcase,
                     canInteract = function()
@@ -335,7 +334,7 @@ Framework.ox = {
                     end,
                 },
                 {
-                    label = "Property Info",
+                    label = "Informations de la propriété",
                     icon = "fas fa-circle-info",
                     onSelect = showData,
                     canInteract = function()
@@ -346,7 +345,7 @@ Framework.ox = {
                     end,
                 },
                 {
-                    label = "Ring Doorbell",
+                    label = "Appeler la porte",
                     icon = "fas fa-bell",
                     onSelect = enter,
                     canInteract = function()
@@ -355,7 +354,7 @@ Framework.ox = {
                     end,
                 },
                 {
-                    label = "Raid Property",
+                    label = "Raid la propriété",
                     icon = "fas fa-building-shield",
                     onSelect = raid,
                     canInteract = function()
@@ -381,7 +380,7 @@ Framework.ox = {
             debug = Config.DebugMode,
             options = {
                 {
-                    label = "Enter Apartment",
+                    label = "Entrer dans l'appartement",
                     onSelect = enter,
                     icon = "fas fa-door-open",
                     canInteract = function()
@@ -390,12 +389,12 @@ Framework.ox = {
                     end,
                 },
                 {
-                    label = "See all apartments",
+                    label = "Voir tous les appartements",
                     onSelect = seeAll,
                     icon = "fas fa-circle-info",
                 },
                 {
-                    label = "Raid Apartment",
+                    label = "Raid l'appartement",
                     onSelect = seeAllToRaid,
                     icon = "fas fa-building-shield",
                     canInteract = function()
@@ -422,13 +421,13 @@ Framework.ox = {
             options = {
                 {
                     name = "leave",
-                    label = "Leave Property",
+                    label = "Quitter la propriété",
                     onSelect = leave,
                     icon = "fas fa-right-from-bracket",
                 },
                 {
                     name = "doorbell",
-                    label = "Check Door",
+                    label = "Vérifier la porte",
                     onSelect = checkDoor,
                     icon = "fas fa-bell",
                 },
@@ -447,7 +446,7 @@ Framework.ox = {
             options = {
                 {
                     name = "leave",
-                    label = "Leave",
+                    label = "Quitter",
                     onSelect = leave,
                     icon = "fas fa-right-from-bracket",
                 },
