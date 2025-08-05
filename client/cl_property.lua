@@ -388,9 +388,7 @@ end
 
 function Property:GiveMenus(garden)
     if not garden and not self.inProperty then return end
-    print("GiveMenus")
-    print(self.has_access)
-    print(Config.AccessCanEditFurniture)
+
     local accessAndConfig = self.has_access and Config.AccessCanEditFurniture
 
     if self.owner or accessAndConfig then
@@ -938,7 +936,7 @@ end
 RegisterNetEvent("ps-housing:client:enterProperty", function(property_id, spawn)
     local property = Property.Get(property_id)
     if not property then
-        print("Property not found", property_id, spawn)
+        print("=> Property not found", property_id, spawn)
         return
     end
     
