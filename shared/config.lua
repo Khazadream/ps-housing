@@ -606,6 +606,30 @@ Config.Shells = {
             },
         },
     },
+
+    -- Shell Creator
+    ["shell_luxe_1"] = {
+        label = "Appartement Luxe 1",
+        hash = `kq_sbx_shell_5`,
+        doorOffset = { x = 6.0, y = 4.0, z = 1.0, h = 270.0, width = 1.5 },
+        stash = {
+            maxweight = 100000,
+            slots = 12,
+        },
+        imgs = {},
+    },
+
+    ["shell_house_luxe_1"] = {
+        label = "Maison luxe",
+        hash = `kq_sbx_shell_6`,
+        doorOffset = { x = -12.0, y = 0.0, z = 1.0, h = 90.0, width = 1.5 },
+        stash = {
+            maxweight = 100000,
+            slots = 12,
+        },
+        imgs = {},
+    },    
+        
 }
 
 Config.FurnitureTypes = {
