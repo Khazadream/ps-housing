@@ -364,8 +364,6 @@ function Property:UpdateOwner(data)
         return
     end
 
-    print('Bank: ', bank)
-    print('Price: ', json.encode(self.propertyData))
     if bank < self.propertyData.price then
         Framework[Config.Notify].Notify(targetSrc, "Vous n'avez pas assez d'argent sur votre compte bancaire", "error")
         Framework[Config.Notify].Notify(realtorSrc, "Le client n'a pas assez d'argent sur son compte bancaire", "error")
