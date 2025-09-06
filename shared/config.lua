@@ -70,7 +70,7 @@ Config.Commissions = {
 Config.StartingApartment = false
 
 --- With this enabled, the customizer will open when starting apartment is false.
-Config.ShowCustomizerWhenNoStartingApartment = true
+Config.ShowCustomizerWhenNoStartingApartment = false
 
 Config.Apartments = {
     ["Integrity Way"] = {
