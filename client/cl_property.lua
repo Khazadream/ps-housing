@@ -1,4 +1,4 @@
-local SPAWN_SHELL_Z_COORD = 3000.0 -- was 25.0
+local SPAWN_SHELL_Z_COORD = 200.0 -- was 25.0
 Property = {
     property_id = nil,
     propertyData = nil,
