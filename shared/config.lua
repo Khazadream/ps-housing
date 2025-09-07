@@ -610,7 +610,7 @@ Config.Shells = {
     -- Shell Creator
     ["shell_luxe_1"] = {
         label = "Appartement Luxe 1",
-        hash = `kq_sbx_shell_4`,
+        hash = `kq_sbx_shell_5`,
         doorOffset = { x = 6.0, y = 4.0, z = 1.0, h = 270.0, width = 1.5 },
         stash = {
             maxweight = 100000,
