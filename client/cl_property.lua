@@ -1,3 +1,4 @@
+local SPAWN_SHELL_Z_COORD = 3000.0 -- was 25.0
 Property = {
     property_id = nil,
     propertyData = nil,
@@ -77,7 +78,7 @@ end
 function Property:CreateShell()
     local coords = self:GetDoorCoords()
 
-    coords = vec3(coords.x, coords.y, coords.z - 25.0)
+    coords = vec3(coords.x, coords.y, coords.z - SPAWN_SHELL_Z_COORD)
     self.shell = Shell:CreatePropertyShell(self.propertyData.shell, coords)
 
     self.shellObj = self.shell.entity
