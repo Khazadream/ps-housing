@@ -305,6 +305,20 @@ function Property:UnregisterGarageZone()
     self.garageZone = nil
 end
 
+local function DisableWeather(IsInsideFunc)
+    CreateThread(function()
+        TriggerEvent('qb-weathersync:client:DisableSync')
+        while IsInsideFunc() do
+            -- Freeze current weather
+            SetRainLevel(0.0)
+            SetWeatherTypePersist('CLEAR')
+            SetWeatherTypeNow('CLEAR')
+            SetWeatherTypeNowPersist('CLEAR')
+            NetworkOverrideClockTime(0, 0, 0)
+            Wait(2000)
+        end
+    end)
+end
 
 function Property:EnterShell()
     self = self
@@ -335,6 +349,7 @@ function Property:EnterShell()
 
     self.inProperty = true
     self:GiveMenus()
+    DisableWeather(function() return self.inProperty end)
 
     if not isMlo or isIpl then
         DoScreenFadeIn(250)
@@ -380,6 +395,7 @@ function Property:LeaveShell()
     self:RemoveMenus()
     self.doorbellPool = {}
     self.inProperty = false
+    TriggerServerEvent('qb-weathersync:client:EnableSync')
 
     if not isMlo or isIpl then
         Wait(250)
