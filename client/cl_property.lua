@@ -39,6 +39,7 @@ function Property:new(propertyData)
 
     self.owner = propertyData.owner == citizenid
     self.has_access = lib.table.contains(self.propertyData.has_access, citizenid)
+    -- TODO: If evangeGroupName is not nil and player is inside group, then  has_access = true
 
     if propertyData.apartment then
         local aptName = propertyData.apartment
@@ -241,7 +242,7 @@ function Property:RegisterPropertyEntrance()
     ::skip::
     local door = isMlo and self:RegisterMlo() or self.propertyData.door_data
     if not door or not door.length then return end
-
+    -- TODO: SPAWN with evange-housing
     local size = vector3(door.length, door.width, 2.5)
     self.entranceTarget = Framework[Config.Target].AddEntrance(door, size, door.h, self.property_id, enter, raid, showcase, showData, targetName)
     if self.owner or self.has_access then
@@ -254,9 +255,14 @@ function Property:UnregisterPropertyEntrance()
 
     Framework[Config.Target].RemoveTargetZone(self.entranceTarget)
     self.entranceTarget = nil
+    print('UnregisterPropertyEntrance')
 end
 
 function Property:RegisterGarageZone()
+    print('RegisterGarageZone', self.propertyData.street .. self.property_id .. " Garage")
+    print(json.encode(self.propertyData.garage_data, {indent = true}))
+    print('has_access:', self.has_access, self.owner)
+    print('</END>')
     if not next(self.propertyData.garage_data) then return end
 
     if not (self.has_access or self.owner) or not self.owner then
@@ -281,6 +287,8 @@ function Property:RegisterGarageZone()
             },
             type = "house",
             label = label,
+            hasLimit = true,
+            sizeLimit = garageData.garage_size,
         })
     end
     if not isQbx then
@@ -305,6 +313,12 @@ function Property:UnregisterGarageZone()
     self.garageZone = nil
 end
 
+function Property:UpdateGarageConfig()
+    if not self.self.propertyData.garage_data then return end
+    self:UnregisterGarageZone()
+    self:RegisterGarageZone()
+end
+
 local function DisableWeather(IsInsideFunc)
     CreateThread(function()
         TriggerEvent('qb-weathersync:client:DisableSync')
@@ -315,7 +329,7 @@ local function DisableWeather(IsInsideFunc)
             SetWeatherTypeNow('CLEAR')
             SetWeatherTypeNowPersist('CLEAR')
             NetworkOverrideClockTime(0, 0, 0)
-            Wait(2000)
+            Wait(5000)
         end
     end)
 end
@@ -910,13 +924,21 @@ end
 
 function Property:UpdateHas_access(newHas_access)
     local citizenid = PlayerData.citizenid
+    local playerGroups = exports['evange-group-manager']:GetPlayerGroups()
     self.propertyData.has_access = newHas_access
+    print('UpdateHas_access', json.encode(newHas_access, {indent = true}))
+    print('playerGroups', json.encode(playerGroups, {indent = true}))
     self.has_access = lib.table.contains(newHas_access, citizenid)
 
     if not self.inProperty then return end
 
     self:RemoveMenus()
     self:GiveMenus()
+    self:UpdateGarageConfig()
+    if self.has_access or self.owner then
+        self:RemoveBlip()
+        self:CreateBlip()
+    end
 end
 
 function Property:UpdateGarage(newGarage)

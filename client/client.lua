@@ -22,9 +22,10 @@ function InitialiseProperties(properties)
     Debug("Initialising properties")
     PlayerData = QBCore.Functions.GetPlayerData()
 
-    for k, v in pairs(Config.Apartments) do
-        ApartmentsTable[k] = Apartment:new(v)
-    end
+    print('Apartments not initialised')
+    -- for k, v in pairs(Config.Apartments) do
+    --     ApartmentsTable[k] = Apartment:new(v)
+    -- end
 
 	if not properties then
     	properties = lib.callback.await('ps-housing:server:requestProperties')
