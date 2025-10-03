@@ -259,10 +259,10 @@ function Property:UnregisterPropertyEntrance()
 end
 
 function Property:RegisterGarageZone()
-    print('RegisterGarageZone', self.propertyData.street .. self.property_id .. " Garage")
-    print(json.encode(self.propertyData.garage_data, {indent = true}))
-    print('has_access:', self.has_access, self.owner)
-    print('</END>')
+    -- print('RegisterGarageZone', self.propertyData.street .. self.property_id .. " Garage")
+    -- print(json.encode(self.propertyData.garage_data, {indent = true}))
+    -- print('has_access:', self.has_access, self.owner)
+    -- print('</END>')
     if not next(self.propertyData.garage_data) then return end
 
     if not (self.has_access or self.owner) or not self.owner then
@@ -926,8 +926,6 @@ function Property:UpdateHas_access(newHas_access)
     local citizenid = PlayerData.citizenid
     local playerGroups = exports['evange-group-manager']:GetPlayerGroups()
     self.propertyData.has_access = newHas_access
-    print('UpdateHas_access', json.encode(newHas_access, {indent = true}))
-    print('playerGroups', json.encode(playerGroups, {indent = true}))
     self.has_access = lib.table.contains(newHas_access, citizenid)
 
     if not self.inProperty then return end
