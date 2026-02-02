@@ -39,7 +39,12 @@ function Property:new(propertyData)
 
     self.owner = propertyData.owner == citizenid
     self.has_access = lib.table.contains(self.propertyData.has_access, citizenid)
-    -- TODO: If evangeGroupName is not nil and player is inside group, then  has_access = true
+
+    -- evange-housing: skip entrance registration, entry is managed by evange-housing resource
+    -- has_access is granted dynamically at entry time via evange-housing:client:grantFurnitureAccess
+    if propertyData.isGM == 'evange-housing' then
+        return self
+    end
 
     if propertyData.apartment then
         local aptName = propertyData.apartment
@@ -418,9 +423,12 @@ function Property:LeaveShell()
 end
 
 function Property:GiveMenus(garden)
+    print('[PS-HOUSING GiveMenus] garden=' .. tostring(garden) .. ' inProperty=' .. tostring(self.inProperty) .. ' has_access=' .. tostring(self.has_access) .. ' evangeCanEdit=' .. tostring(self.evangeCanEditFurniture) .. ' owner=' .. tostring(self.owner) .. ' AccessCanEditFurniture=' .. tostring(Config.AccessCanEditFurniture) .. ' isGM=' .. tostring(self.propertyData and self.propertyData.isGM or 'nil'))
     if not garden and not self.inProperty then return end
 
-    local accessAndConfig = self.has_access and Config.AccessCanEditFurniture
+    -- evange-housing: check custom flag set by evange-housing during entry
+    local accessAndConfig = (self.has_access or self.evangeCanEditFurniture) and Config.AccessCanEditFurniture
+    print('[PS-HOUSING GiveMenus] accessAndConfig=' .. tostring(accessAndConfig) .. ' => showing menu: ' .. tostring(self.owner or accessAndConfig))
 
     if self.owner or accessAndConfig then
         Framework[Config.Radial].AddRadialOption(
@@ -969,6 +977,14 @@ end
 function Property.Get(property_id)
     return PropertiesTable[tostring(property_id)]
 end
+
+-- evange-housing: set furniture edit flag on the REAL property object (exports return copies)
+AddEventHandler('ps-housing:client:setEvangeCanEditFurniture', function(property_id, canEdit)
+    local property = Property.Get(property_id)
+    if property then
+        property.evangeCanEditFurniture = canEdit
+    end
+end)
 
 RegisterNetEvent("ps-housing:client:enterProperty", function(property_id, spawn)
     local property = Property.Get(property_id)

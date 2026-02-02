@@ -638,8 +638,224 @@ Config.Shells = {
                 label = "Plan maison",
             },
         },
-    },    
-        
+    },
+
+    -- K4MB1 Basements
+    ["K4 Basement 1"] = {
+        label = "Basement 1",
+        hash = `k4_basement1_shell`,
+        doorOffset = { x = -4.7645, y = -5.0591, z = 1.1515, h = 1.3772, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Basement 2"] = {
+        label = "Basement 2",
+        hash = `k4_basement2_shell`,
+        doorOffset = { x = -4.7645, y = -5.0591, z = 1.1515, h = 1.3772, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Basement 3"] = {
+        label = "Basement 3",
+        hash = `k4_basement3_shell`,
+        doorOffset = { x = -4.7645, y = -5.0591, z = 1.1515, h = 1.3772, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Basement 4"] = {
+        label = "Basement 4",
+        hash = `k4_basement4_shell`,
+        doorOffset = { x = -4.7645, y = -5.0591, z = 1.1515, h = 1.3772, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Basement 5"] = {
+        label = "Basement 5",
+        hash = `k4_basement5_shell`,
+        doorOffset = { x = -4.7645, y = -5.0591, z = 1.1515, h = 1.3772, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Bikers
+    ["K4 Biker 1"] = {
+        label = "Biker 1",
+        hash = `k4_biker1_shell`,
+        doorOffset = { x = 7.5630, y = -10.7593, z = 0.4905, h = 356.6188, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Biker 2"] = {
+        label = "Biker 2",
+        hash = `k4_biker2_shell`,
+        doorOffset = { x = -10.5574, y = 3.3867, z = 0.8010, h = 174.8644, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Biker 3"] = {
+        label = "Biker 3",
+        hash = `k4_biker3_shell`,
+        doorOffset = { x = -6.9127, y = -3.0049, z = 0.9625, h = 353.6001, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Container
+    ["K4 Container"] = {
+        label = "Container",
+        hash = `k4_container_shell`,
+        doorOffset = { x = -6.9127, y = -3.0049, z = 0.9625, h = 353.6001, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Offices
+    ["K4 Office 1"] = {
+        label = "Office 1",
+        hash = `k4_office1_shell`,
+        doorOffset = { x = 3.6570, y = -2.0684, z = 2.0585, h = 93.0456, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 2"] = {
+        label = "Office 2",
+        hash = `k4_office2_shell`,
+        doorOffset = { x = 4.5115, y = 3.7539, z = 1.0831, h = 172.7921, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 3"] = {
+        label = "Office 3",
+        hash = `k4_office3_shell`,
+        doorOffset = { x = -9.7715, y = -24.0737, z = 1.0807, h = 300.4569, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 4"] = {
+        label = "Office 4",
+        hash = `k4_office4_shell`,
+        doorOffset = { x = 8.9535, y = -2.2632, z = 1.2458, h = 90.2104, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 5"] = {
+        label = "Office 5",
+        hash = `k4_office5_shell`,
+        doorOffset = { x = 3.5215, y = -14.0171, z = 2.0191, h = 4.1642, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 6"] = {
+        label = "Office 6",
+        hash = `k4_office6_shell`,
+        doorOffset = { x = 4.4019, y = 5.3755, z = 0.3214, h = 173.0232, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 7"] = {
+        label = "Office 7",
+        hash = `k4_office7_shell`,
+        doorOffset = { x = 3.6422, y = -1.9678, z = 0.7201, h = 92.6392, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Office 8"] = {
+        label = "Office 8",
+        hash = `k4_office8_shell`,
+        doorOffset = { x = 3.6422, y = -1.9678, z = 0.7201, h = 92.6392, width = 1.5 },
+        stash = { maxweight = 250000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Stash Houses
+    ["K4 Stash House 1"] = {
+        label = "Stash House 1",
+        hash = `k4_stashhouse1_shell`,
+        doorOffset = { x = 21.5724, y = -0.5518, z = 1.3543, h = 95.1411, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Stash House 2"] = {
+        label = "Stash House 2",
+        hash = `k4_stashhouse2_shell`,
+        doorOffset = { x = -1.8561, y = 2.3325, z = 0.4855, h = 285.6052, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Stores
+    ["K4 Store 1"] = {
+        label = "Store 1",
+        hash = `k4_store1_shell`,
+        doorOffset = { x = -2.7702, y = -4.4995, z = 0.6736, h = 359.3002, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Store 2"] = {
+        label = "Store 2",
+        hash = `k4_store2_shell`,
+        doorOffset = { x = -0.8002, y = -4.9365, z = 0.5094, h = 358.6120, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Store 3"] = {
+        label = "Store 3",
+        hash = `k4_store3_shell`,
+        doorOffset = { x = -0.0818, y = -7.8364, z = 1.5159, h = 4.8627, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Store 4"] = {
+        label = "Store 4",
+        hash = `k4_store4_shell`,
+        doorOffset = { x = -1.0679, y = -5.2949, z = 0.5483, h = 4.6777, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Store 5"] = {
+        label = "Store 5",
+        hash = `k4_store5_shell`,
+        doorOffset = { x = 1.5443, y = 5.1611, z = 0.7277, h = 187.2491, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Warehouses
+    ["K4 Warehouse 1"] = {
+        label = "Warehouse 1",
+        hash = `k4_warehouse1_shell`,
+        doorOffset = { x = -8.6658, y = 0.3779, z = 0.3157, h = 268.6578, width = 2.0 },
+        stash = { maxweight = 1000000, slots = 100 },
+        imgs = {},
+    },
+    ["K4 Warehouse 2"] = {
+        label = "Warehouse 2",
+        hash = `k4_warehouse2_shell`,
+        doorOffset = { x = -12.3270, y = 5.5259, z = 0.9892, h = 272.7624, width = 2.0 },
+        stash = { maxweight = 1000000, slots = 100 },
+        imgs = {},
+    },
+    ["K4 Warehouse 3"] = {
+        label = "Warehouse 3",
+        hash = `k4_warehouse3_shell`,
+        doorOffset = { x = -12.3270, y = 5.5259, z = 0.9892, h = 272.7624, width = 2.0 },
+        stash = { maxweight = 1000000, slots = 100 },
+        imgs = {},
+    },
+    ["K4 Warehouse 4"] = {
+        label = "Warehouse 4",
+        hash = `k4_warehouse4_shell`,
+        doorOffset = { x = 8.6109, y = -3.2920, z = 0.6461, h = 94.4741, width = 2.0 },
+        stash = { maxweight = 1000000, slots = 100 },
+        imgs = {},
+    },
+    ["K4 Warehouse 5"] = {
+        label = "Warehouse 5",
+        hash = `k4_warehouse5_shell`,
+        doorOffset = { x = 13.2595, y = -7.3354, z = 0.6254, h = 86.7514, width = 2.0 },
+        stash = { maxweight = 1000000, slots = 100 },
+        imgs = {},
+    },
 }
 
 Config.FurnitureTypes = {

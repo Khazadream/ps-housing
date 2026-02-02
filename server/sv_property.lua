@@ -89,7 +89,20 @@ end
 
 function Property:CheckForAccess(citizenid)
     if self.propertyData.owner == citizenid then return true end
-    return lib.table.contains(self.propertyData.has_access, citizenid)
+    if lib.table.contains(self.propertyData.has_access, citizenid) then return true end
+    -- evange-housing: gang doors grant access to gang members
+    if self.propertyData.isGM == 'evange-housing' and self.propertyData.evangeGroupName then
+        local ok, inGroup = pcall(exports['evange-group-manager'].IsPlayerInGroupByCitizenId,
+            exports['evange-group-manager'], citizenid, self.propertyData.evangeGroupName)
+        if ok and inGroup then return true end
+    end
+    -- evange-housing: residential doors require admin (checked via evange-housing export)
+    if self.propertyData.isGM == 'evange-housing' and not self.propertyData.evangeGroupName then
+        local ok, isAdmin = pcall(exports['evange-housing'].IsPlayerAdminByCitizenId,
+            exports['evange-housing'], citizenid)
+        if ok and isAdmin then return true end
+    end
+    return false
 end
 
 function Property:AddToDoorbellPoolTemp(src)
@@ -635,6 +648,12 @@ RegisterNetEvent('ps-housing:server:enterProperty', function (property_id, spawn
         return
     end
 
+    -- evange-housing: trust access validation from evange-housing resource
+    if property.propertyData.isGM == 'evange-housing' then
+        property:PlayerEnter(src)
+        return
+    end
+
     local citizenid = GetCitizenid(src)
 
     if property:CheckForAccess(citizenid) and not isanmlo then
@@ -804,6 +823,9 @@ RegisterNetEvent('ps-housing:server:leaveProperty', function (property_id)
     if not property then return end
 
     property:PlayerLeave(src)
+
+    -- Notify evange-housing that the player left
+    TriggerClientEvent('ps-housing:client:leaveProperty', src, property_id)
 end)
 
 -- When player presses doorbell, owner can let them in and this is what is triggered

@@ -111,8 +111,12 @@ Modeler = {
         local property = Property.Get(property_id)
 
         if not property then return end
-        if not property.owner and not property.has_access then return end
-        if property.has_access and not Config.AccessCanEditFurniture  then return end
+        -- evange-housing: allow access for anyone inside GM properties (access validated server-side)
+        local isEvangeHousing = property.propertyData and property.propertyData.isGM == 'evange-housing'
+        if not isEvangeHousing then
+            if not property.owner and not property.has_access then return end
+            if property.has_access and not Config.AccessCanEditFurniture  then return end
+        end
 
         local isMlo = property.propertyData.shell == 'mlo'
         self.shellPos = isMlo and getPolygonCentroid(property.mloData.poly.points) or GetEntityCoords(property.shellObj)
@@ -331,8 +335,12 @@ Modeler = {
         local property = Property.Get(self.property_id)
 
         if not property then return end
-        if not property.owner and not property.has_access then return end
-        if property.has_access and not Config.AccessCanEditFurniture  then return end 
+        -- evange-housing: allow access for anyone inside GM properties (access validated server-side)
+        local isEvangeHousing = property.propertyData and property.propertyData.isGM == 'evange-housing'
+        if not isEvangeHousing then
+            if not property.owner and not property.has_access then return end
+            if property.has_access and not Config.AccessCanEditFurniture  then return end
+        end
 
 
         SendNUIMessage({
