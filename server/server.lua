@@ -300,14 +300,72 @@ RegisterNetEvent("ps-housing:server:createNewApartment", function(aptLabel)
     RegisterProperty(propertyData)
 end)
 
--- we show the character creator if they spawn without starting appartment and doesn't have skin set
+-- Player disconnected: clean up playersInside tracking but KEEP metadata so we can re-enter on reconnect
+-- Save player coords inside the shell keyed by citizenid (persists across source ID changes)
+local DisconnectCoords = {}
+
+AddEventHandler('playerDropped', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if not Player then return end
+
+    local insideMeta = Player.PlayerData.metadata['inside']
+    if insideMeta and insideMeta.property_id then
+        local property = Property.Get(insideMeta.property_id)
+        if property then
+            property.playersInside[tostring(src)] = nil
+        end
+        -- Save player position inside the shell
+        local ped = GetPlayerPed(src)
+        if ped and ped ~= 0 then
+            local pedCoords = GetEntityCoords(ped)
+            local heading = GetEntityHeading(ped)
+            DisconnectCoords[Player.PlayerData.citizenid] = {
+                x = pedCoords.x, y = pedCoords.y, z = pedCoords.z, h = heading
+            }
+        end
+    end
+end)
+
+-- Pending re-entries: players who disconnected inside a property and need to be re-entered after client loads
+local PendingReentry = {}
+
 RegisterNetEvent("QBCore:Server:OnPlayerLoaded", function()
+    local src = source
+
+    -- Check if player was inside a property when they disconnected
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player then
+        local insideMeta = Player.PlayerData.metadata['inside']
+        if insideMeta and insideMeta.property_id then
+            local property = Property.Get(insideMeta.property_id)
+            if property then
+                -- Store pending re-entry with saved coords
+                local citizenid = Player.PlayerData.citizenid
+                PendingReentry[src] = {
+                    property_id = insideMeta.property_id,
+                    savedCoords = DisconnectCoords[citizenid]
+                }
+                DisconnectCoords[citizenid] = nil
+            else
+                -- Property no longer exists, clean up stale metadata
+                insideMeta.property_id = nil
+                Player.Functions.SetMetaData('inside', insideMeta)
+            end
+        end
+    end
+
+    -- Safety: reset routing bucket to 0 (will be set again when re-entering property)
+    local currentBucket = GetPlayerRoutingBucket(src)
+    if currentBucket ~= 0 then
+        QBCore.Functions.SetPlayerBucket(src, 0)
+    end
+
     if Config.StartingApartment then return end
 
-    local src = source
     local citizenid = GetCitizenid(src)
     local query = "SELECT skin FROM playerskins WHERE citizenid = ?"
-    
+
     local success, result = pcall(function()
         return MySQL.Sync.fetchAll(query, {citizenid})
     end)
@@ -323,6 +381,40 @@ RegisterNetEvent("QBCore:Server:OnPlayerLoaded", function()
         TriggerClientEvent("qb-clothes:client:CreateFirstCharacter", src)
         Debug("Player: " .. citizenid .. " is creating a new character!")
     end
+end)
+
+-- Client signals that properties have been loaded, check if player needs to re-enter a property
+RegisterNetEvent("ps-housing:server:clientPropertiesLoaded", function()
+    local src = source
+    local pending = PendingReentry[src]
+    if not pending then return end
+    PendingReentry[src] = nil
+
+    local property = Property.Get(pending.property_id)
+    if not property then return end
+
+    -- For evange-housing properties, set the furniture edit flag on the client
+    if property.propertyData.isGM == 'evange-housing' then
+        local canEdit = false
+        local Player = QBCore.Functions.GetPlayer(src)
+        if Player then
+            local citizenid = Player.PlayerData.citizenid
+            canEdit = property:CheckForAccess(citizenid)
+        end
+        TriggerClientEvent('ps-housing:client:setEvangeCanEditFurniture', src, tostring(pending.property_id), canEdit)
+    end
+
+    property:PlayerEnter(src)
+
+    -- Restore player position inside the shell after entry
+    if pending.savedCoords then
+        TriggerClientEvent('ps-housing:client:restorePosition', src, pending.savedCoords)
+    end
+end)
+
+-- Clean up pending re-entry if player disconnects before properties loaded
+AddEventHandler('playerDropped', function()
+    PendingReentry[source] = nil
 end)
 
 -- Creates apartment stash

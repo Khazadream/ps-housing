@@ -36,6 +36,7 @@ function InitialiseProperties(properties)
     end
 
     TriggerEvent("ps-housing:client:initialisedProperties")
+    TriggerServerEvent("ps-housing:server:clientPropertiesLoaded")
 
     Debug("Initialised properties")
     loaded = true

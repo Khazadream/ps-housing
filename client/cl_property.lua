@@ -423,12 +423,10 @@ function Property:LeaveShell()
 end
 
 function Property:GiveMenus(garden)
-    print('[PS-HOUSING GiveMenus] garden=' .. tostring(garden) .. ' inProperty=' .. tostring(self.inProperty) .. ' has_access=' .. tostring(self.has_access) .. ' evangeCanEdit=' .. tostring(self.evangeCanEditFurniture) .. ' owner=' .. tostring(self.owner) .. ' AccessCanEditFurniture=' .. tostring(Config.AccessCanEditFurniture) .. ' isGM=' .. tostring(self.propertyData and self.propertyData.isGM or 'nil'))
     if not garden and not self.inProperty then return end
 
     -- evange-housing: check custom flag set by evange-housing during entry
     local accessAndConfig = (self.has_access or self.evangeCanEditFurniture) and Config.AccessCanEditFurniture
-    print('[PS-HOUSING GiveMenus] accessAndConfig=' .. tostring(accessAndConfig) .. ' => showing menu: ' .. tostring(self.owner or accessAndConfig))
 
     if self.owner or accessAndConfig then
         Framework[Config.Radial].AddRadialOption(
@@ -1001,6 +999,14 @@ RegisterNetEvent("ps-housing:client:enterProperty", function(property_id, spawn)
     else
         property:EnterShell()
     end
+end)
+
+-- Restore player position inside shell after reconnect
+RegisterNetEvent("ps-housing:client:restorePosition", function(coords)
+    if not coords then return end
+    Wait(500) -- Wait for shell to finish creating
+    SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, false, false, true)
+    SetEntityHeading(cache.ped, coords.h or 0.0)
 end)
 
 RegisterNetEvent("ps-housing:client:updateDoorbellPool", function(property_id, data)
