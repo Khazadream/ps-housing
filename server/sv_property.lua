@@ -92,8 +92,8 @@ function Property:CheckForAccess(citizenid)
     if lib.table.contains(self.propertyData.has_access, citizenid) then return true end
     -- evange-housing: gang doors grant access to gang members
     if self.propertyData.isGM == 'evange-housing' and self.propertyData.evangeGroupName then
-        local ok, inGroup = pcall(exports['evange-group-manager'].IsPlayerInGroupByCitizenId,
-            exports['evange-group-manager'], citizenid, self.propertyData.evangeGroupName)
+        local ok, inGroup = pcall(exports['evange-group-manager'].IsPlayerInGroup,
+            exports['evange-group-manager'], citizenid, self.propertyData.evangeGroupName, false)
         if ok and inGroup then return true end
     end
     -- evange-housing: residential doors require admin (checked via evange-housing export)
