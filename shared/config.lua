@@ -856,6 +856,145 @@ Config.Shells = {
         stash = { maxweight = 1000000, slots = 100 },
         imgs = {},
     },
+
+    -- K4MB1 Stash Houses (continued)
+    ["K4 Stash House 3"] = {
+        label = "Stash House 3",
+        hash = `k4_stashhouse3_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+    ["K4 Stash House 4"] = {
+        label = "Stash House 4",
+        hash = `k4_stashhouse4_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Container (continued)
+    ["K4 Container 2"] = {
+        label = "Container 2",
+        hash = `k4_container2_shell`,
+        doorOffset = { x = 0.5389, y = -5.5869, z = -0.2185, h = 0.0, width = 1.5 },
+        stash = { maxweight = 200000, slots = 30 },
+        imgs = {},
+    },
+
+    -- K4MB1 Bunker
+    ["K4 Bunker"] = {
+        label = "Bunker",
+        hash = `k4_bunker_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 500000, slots = 50 },
+        imgs = {},
+    },
+
+    -- K4MB1 Guns
+    ["K4 Guns"] = {
+        label = "Guns",
+        hash = `k4_guns_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Laundry
+    ["K4 Laundry"] = {
+        label = "Laundry",
+        hash = `k4_laundry_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Labs Empty
+    ["K4 Lab Empty 1"] = {
+        label = "Lab Empty 1",
+        hash = `k4_labempty_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Lab Empty 2"] = {
+        label = "Lab Empty 2",
+        hash = `k4_labempty2_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Lab Empty 3"] = {
+        label = "Lab Empty 3",
+        hash = `k4_labempty3_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Lab Empty 4"] = {
+        label = "Lab Empty 4",
+        hash = `k4_labempty4_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Labs Meth
+    ["K4 Lab Meth 1"] = {
+        label = "Lab Meth 1",
+        hash = `k4_labmeth_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Lab Meth 2"] = {
+        label = "Lab Meth 2",
+        hash = `k4_labmeth2_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Labs Coke
+    ["K4 Lab Coke 1"] = {
+        label = "Lab Coke 1",
+        hash = `k4_labcoke_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Lab Coke 2"] = {
+        label = "Lab Coke 2",
+        hash = `k4_labcoke2_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Labs Weed
+    ["K4 Lab Weed 1"] = {
+        label = "Lab Weed 1",
+        hash = `k4_labweed_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+    ["K4 Lab Weed 2"] = {
+        label = "Lab Weed 2",
+        hash = `k4_labweed2_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
+
+    -- K4MB1 Lab Acid
+    ["K4 Lab Acid"] = {
+        label = "Lab Acid",
+        hash = `k4_labacid_shell`,
+        doorOffset = { x = 0.0, y = 0.0, z = 1.5, h = 0.0, width = 1.5 },
+        stash = { maxweight = 300000, slots = 40 },
+        imgs = {},
+    },
 }
 
 Config.FurnitureTypes = {
