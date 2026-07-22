@@ -608,6 +608,17 @@ Config.Shells = {
     },
 
     -- Shell Creator
+    ["empty_room"] = {
+        label = "empty_room",
+        hash = `kq_sbx_shell_9`,
+        doorOffset = { x = 0.0, y = 4.0, z = 1.0, h = 180.0, width = 1.5 },
+        stash = {
+            maxweight = 100000,
+            slots = 12,
+        },
+        imgs = {},
+    },
+        
     ["shell_luxe_1"] = {
         label = "Appartement Luxe 1",
         hash = `kq_sbx_shell_5`,
