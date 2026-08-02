@@ -1,74 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Kanit:wght@100;200;400;500;600&family=Michroma&family=Space+Mono:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   TACOMA — classified dossier (shared look with qb-garages)
+   Authored at the wireframe's native 1280x720 in raw px.
+   ============================================================ */
+
+:root {
+  /* Bump to scale the whole editor up on very large displays. */
+  --ui-scale: 1;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Satoshi', sans-serif;
-    color: #fff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
-:root {
-    font-size: 62.5%;
-    --color-primary: #131313;
-    --color-secondary: #1f2528;
-    --color-tertiary: #26343a;
-    --color-accent: #00889E;
+html,
+body,
+#app {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: transparent;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 16px;
+  color: #cfc4b2;
+  -webkit-font-smoothing: antialiased;
 }
 
-html, body {
-height: 100vh;
-width: 100vw;
-font-size: 1.6rem;
-overflow: hidden;
-}
-
+/* The game renders behind the UI — never paint a page background. */
 ::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+  width: 0;
+  height: 0;
 }
 
-.scroll-style-horizontal::-webkit-scrollbar {
-    height: 0.5rem;
-    width: 100%;
+/* ---------- Scrollbars ---------- */
+
+.tacoma-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.scroll-style-vertical::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 100%;
+.tacoma-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.scroll-style::-webkit-scrollbar-track {
-    background: white;
+.tacoma-scroll::-webkit-scrollbar-thumb {
+  background: #2c2822;
 }
 
-.scroll-style::-webkit-scrollbar-thumb {
-    background: var(--color-accent);
-    border-radius: 1rem;
+.tacoma-scroll::-webkit-scrollbar-thumb:hover {
+  background: #3a352d;
 }
 
-input#slider[type='range'] {
-    height: 1rem;
-    -webkit-appearance: none;
-    width: 100%;
+/* ---------- Range sliders (hover distance / transparency) ---------- */
+/* Flat 2px track with a square gold thumb, per the wireframe HUD pill. */
+
+.tacoma-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  background: transparent;
+  cursor: pointer;
 }
 
-input#slider[type='range']::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 2rem;
-    cursor: pointer;
-    background: var(--color-secondary);
+.tacoma-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: #3a352d;
 }
 
-input#slider[type='range']::-webkit-slider-thumb {
-    height: 2rem;
-    width: 2rem;
-    background: white;
-    cursor: pointer;
-    -webkit-appearance: none;
+.tacoma-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  width: 10px;
+  margin-top: -4px;
+  background: #c9a25f;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.tacoma-range:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+/* ---------- Furniture thumbnail placeholder ---------- */
+/* No prop images ship with ps-housing — the in-world hover preview stands in. */
+
+.furniture-thumb {
+  background: repeating-linear-gradient(
+    135deg,
+    #232019 0 6px,
+    #1d1a16 6px 12px
+  );
+}
+
+/* ---------- Browser-dev backdrop only ---------- */
+
+.browser-backdrop {
+  background: linear-gradient(165deg, #211d18, #0d0b09);
+}
+
+.browser-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(207, 196, 178, 0.05) 0 2px,
+    transparent 2px 11px
+  );
 }

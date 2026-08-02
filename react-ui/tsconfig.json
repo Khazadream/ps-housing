@@ -17,6 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@providers/*": ["./src/providers/*"],
       "@store/*": ["./src/store/*"],
       "@utils/*": ["./src/utils/*"],

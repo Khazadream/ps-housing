@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import VisibilityProvider from '@providers/VisibilityProvider';
 import AlwaysListener from '@providers/AlwaysListener';
-import Menu from '@components/Menu';
-import Modeler from '@components/Modeler';
+import Editor from '@components/Editor';
 import DebugBrowser from '@components/DebugBrowser';
 import { useStore } from '@store/useStore';
 
@@ -17,27 +16,14 @@ export default function App() {
 
   return (
     <>
-      <VisibilityProvider>
-        {furnitures && (
-          <>
-            <Menu />
-            <Modeler />
-          </>
-        )}
-      </VisibilityProvider>
+      <VisibilityProvider>{furnitures && <Editor />}</VisibilityProvider>
 
       <AlwaysListener />
       {browserMode && (
         <>
           <DebugBrowser />
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: -1,
-              backgroundColor: '#404040',
-            }}
-          />
+          {/* Stand-in for the game world when iterating in a browser. */}
+          <div className="browser-backdrop fixed inset-0 -z-10" />
         </>
       )}
     </>

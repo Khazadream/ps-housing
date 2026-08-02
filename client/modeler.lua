@@ -156,6 +156,14 @@ Modeler = {
             data = Config.Furnitures
         })
 
+        -- How many storage props this property accepts. evange-housing doors carry
+        -- their own value, chosen when the door was placed.
+        local maxStash = lib.callback.await('ps-housing:cb:getMaxStash', false, property_id)
+        SendNUIMessage({
+            action = "setMaxStash",
+            data = tonumber(maxStash) or Config.MaxStashFurniture
+        })
+
         -- Owned furniture is set by the Property class
         SetNuiFocus(true, true)
         self:FreecamActive(true)
@@ -450,10 +458,10 @@ Modeler = {
     end,
 
     UpdateCartItem = function (self, data)
-        local item = self.Cart[data.entity]
-
-        if item ~= nil then
-            item = data
+        -- Assign back into the table: rebinding the local left the cart stale,
+        -- so moving a staged item never changed where it was bought.
+        if self.Cart[data.entity] ~= nil then
+            self.Cart[data.entity] = data
         end
     end,
 

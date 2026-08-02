@@ -30,6 +30,34 @@ local function GetStashConfig(propertyData)
     }
 end
 
+--- How many "storage" furniture props this property may hold. Every one of them
+--- opens its own ox_inventory container, so this caps the storage of a location.
+--- evange-housing doors carry a per-door value chosen when the door is placed;
+--- every other property falls back to Config.MaxStashFurniture.
+--- @param propertyData table
+--- @return number
+local function GetMaxStash(propertyData)
+    local fallback = Config.MaxStashFurniture or 2
+    if propertyData.isGM ~= 'evange-housing' then return fallback end
+
+    local ok, maxStash = pcall(exports['evange-housing'].GetDoorMaxStash,
+        exports['evange-housing'], propertyData.property_id)
+    if not ok or type(maxStash) ~= 'number' then return fallback end
+
+    return maxStash
+end
+
+--- Counts the storage furniture already placed in a property.
+--- @param furnitures table
+--- @return number
+local function CountStashFurniture(furnitures)
+    local count = 0
+    for _, furniture in ipairs(furnitures or {}) do
+        if furniture.type == 'storage' then count = count + 1 end
+    end
+    return count
+end
+
 function Property:new(propertyData)
     local self = setmetatable({}, Property)
 
@@ -841,6 +869,13 @@ lib.callback.register('ps-housing:cb:getFurnitures', function(_, property_id)
     return property.propertyData.furnitures or {}
 end)
 
+--- Storage furniture cap of a property, so the furniture menu can show it live.
+lib.callback.register('ps-housing:cb:getMaxStash', function(_, property_id)
+    local property = Property.Get(property_id)
+    if not property then return Config.MaxStashFurniture end
+    return GetMaxStash(property.propertyData)
+end)
+
 
 lib.callback.register('ps-housing:cb:getPlayersInProperty', function(source, property_id)
 
@@ -904,6 +939,25 @@ RegisterNetEvent("ps-housing:server:buyFurniture", function(property_id, items, 
 
     if not property:CheckForAccess(citizenid) then return end
 
+    local propertyData = property.propertyData
+
+    -- Storage cap, checked before any money changes hands.
+    local maxStash = GetMaxStash(propertyData)
+    local incomingStash = 0
+    for i = 1, #items do
+        if items[i].type == 'storage' then incomingStash = incomingStash + 1 end
+    end
+
+    if incomingStash > 0 then
+        local placedStash = CountStashFurniture(propertyData.furnitures)
+        if placedStash + incomingStash > maxStash then
+            Framework[Config.Notify].Notify(src,
+                ("Cette propriété n'accepte que %d meuble(s) de stockage (%d déjà posé(s))."):format(maxStash, placedStash),
+                "error")
+            return
+        end
+    end
+
     price = tonumber(price)
 
     if price > PlayerData.money.bank and price > PlayerData.money.cash then
@@ -917,7 +971,6 @@ RegisterNetEvent("ps-housing:server:buyFurniture", function(property_id, items, 
         Player.Functions.RemoveMoney('bank', price, "Bought furniture")
     end
 
-    local propertyData = property.propertyData
     local numFurnitures = #propertyData.furnitures
     local firstStorage = true
 
