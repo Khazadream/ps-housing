@@ -340,6 +340,10 @@ local function DisableWeather(IsInsideFunc)
 end
 
 function Property:EnterShell()
+    -- Two re-entry paths race on reconnect (qb-multicharacter and ps-housing PendingReentry).
+    -- Without this guard the loser spawns a second shell, leaking the first entity handle.
+    if self.inProperty then return end
+
     self = self
     local isMlo = self.propertyData.shell == 'mlo'
     local isIpl = self.propertyData.apartment and Config.Apartments[self.propertyData.apartment]

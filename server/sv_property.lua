@@ -9,6 +9,27 @@ Property = {
 }
 Property.__index = Property
 
+--- Stash config of a property, with the evange-housing per-door override applied.
+--- evange-housing returns ox_inventory units already (grams, slot count).
+--- @param propertyData table
+--- @return table|nil stashConfig
+local function GetStashConfig(propertyData)
+    local shellConfig = Config.Shells[propertyData.shell]
+    local stashConfig = shellConfig and shellConfig.stash
+    if not stashConfig then return stashConfig end
+
+    if propertyData.isGM ~= 'evange-housing' then return stashConfig end
+
+    local ok, override = pcall(exports['evange-housing'].GetDoorStashConfig,
+        exports['evange-housing'], propertyData.property_id)
+    if not ok or type(override) ~= 'table' then return stashConfig end
+
+    return {
+        slots = tonumber(override.slots) or stashConfig.slots,
+        maxweight = tonumber(override.maxweight) or stashConfig.maxweight,
+    }
+end
+
 function Property:new(propertyData)
     local self = setmetatable({}, Property)
 
@@ -20,7 +41,7 @@ function Property:new(propertyData)
     self.playersDoorbell = {}
 
     local stashName = ("property_%s"):format(propertyData.property_id)
-    local stashConfig = Config.Shells[propertyData.shell].stash
+    local stashConfig = GetStashConfig(propertyData)
 
     for k, v in ipairs(propertyData.furnitures) do
         if v.type == 'storage' then
@@ -52,11 +73,12 @@ function Property:PlayerEnter(src)
         end
     end
 
-    local citizenid = GetCitizenid(src)
-
-    if self:CheckForAccess(citizenid) then
-        local Player = QBCore.Functions.GetPlayer(src)
-        local insideMeta = Player.PlayerData.metadata["inside"]
+    -- Written unconditionally, like the bucket below: this metadata is what allows the player to
+    -- be put back inside on reconnect. Gating it on access left key holders, lockpickers and
+    -- police stranded under the map after a disconnect.
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player then
+        local insideMeta = Player.PlayerData.metadata["inside"] or {}
 
         insideMeta.property_id = self.property_id
         Player.Functions.SetMetaData("inside", insideMeta)
@@ -74,11 +96,12 @@ function Property:PlayerLeave(src)
 
     TriggerClientEvent('qb-weathersync:client:EnableSync', src)
 
-    local citizenid = GetCitizenid(src)
-
-    if self:CheckForAccess(citizenid) then
-        local Player = QBCore.Functions.GetPlayer(src)
-        local insideMeta = Player.PlayerData.metadata["inside"]
+    -- Cleared unconditionally, mirroring PlayerEnter. Gating it on access meant a player who lost
+    -- access while inside (door captured, kicked from the gang) kept a stale property_id forever
+    -- and was pushed back into the property on every login.
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player then
+        local insideMeta = Player.PlayerData.metadata["inside"] or {}
 
         insideMeta.property_id = nil
         Player.Functions.SetMetaData("inside", insideMeta)
@@ -626,6 +649,31 @@ function Property.Get(property_id)
     return PropertiesTable[tostring(property_id)]
 end
 
+--- Re-register every storage stash of a property, applying the current stash config.
+--- Called by evange-housing when an admin changes the stash size of a door.
+--- @param property_id number|string
+--- @return boolean success
+exports('RefreshPropertyStashes', function(property_id)
+    local property = Property.Get(property_id)
+    if not property then return false end
+
+    local propertyData = property.propertyData
+    local stashConfig = GetStashConfig(propertyData)
+    if not stashConfig then return false end
+
+    local stashName = ("property_%s"):format(propertyData.property_id)
+    local label = 'Property: ' .. (propertyData.street or propertyData.apartment or 'Unknown') .. ' #' .. propertyData.property_id
+
+    for _, v in ipairs(propertyData.furnitures or {}) do
+        if v.type == 'storage' then
+            local hash = GetHashKey(v.object)
+            Framework[Config.Inventory].RegisterInventory(stashName .. '_' .. hash, label, stashConfig)
+        end
+    end
+
+    return true
+end)
+
 RegisterNetEvent('ps-housing:server:enterGarden', function (property_id)
     local src = source
     local property = Property.Get(property_id)
@@ -885,7 +933,7 @@ RegisterNetEvent("ps-housing:server:buyFurniture", function(property_id, items, 
         if item.type == 'storage' then
             local stashName = ("property_%s"):format(propertyData.property_id)
             local hash = GetHashKey(item.object)
-            local stashConfig = Config.Shells[propertyData.shell].stash
+            local stashConfig = GetStashConfig(propertyData)
             if not propertyData.apartment then
                 Framework[Config.Inventory].RegisterInventory(stashName .. '_' .. hash, 'Property: ' .. propertyData.street .. '#' .. propertyData.property_id, stashConfig)
             else 
