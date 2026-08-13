@@ -57,7 +57,7 @@ export default function VisibilityProvider({ children }: Props) {
   return (
     <>
       {visibility && (
-        <main className="absolute left-0 top-0 z-[100] m-0 h-screen w-screen select-none p-0 font-chakra">
+        <main className="absolute left-0 top-0 z-[100] m-0 h-screen w-screen select-none p-0 font-sans">
           {children}
         </main>
       )}

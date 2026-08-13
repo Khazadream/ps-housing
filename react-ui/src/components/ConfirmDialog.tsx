@@ -14,7 +14,7 @@ export default function ConfirmDialog({
   onCancel,
 }: Props) {
   return (
-    <div className="absolute inset-0 z-[100] grid place-items-center bg-black/60 font-chakra">
+    <div className="absolute inset-0 z-[100] grid place-items-center bg-black/60 font-sans">
       <div className="flex w-[420px] flex-col gap-5 border border-tacoma-cardline bg-zinc-950 p-7 shadow-[0_30px_60px_rgba(0,0,0,0.6)]">
         <div className="flex flex-col gap-2">
           <span className="font-kanit text-[20px] text-tacoma-paper">

@@ -184,7 +184,7 @@ export default function DebugBrowser() {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="absolute left-1/2 top-0 z-[1000] font-chakra">
+    <div className="absolute left-1/2 top-0 z-[1000] font-sans">
       <button
         className="bg-tacoma-red px-3 py-1 text-[12px] font-bold text-tacoma-paper"
         onClick={() => setShow(!show)}

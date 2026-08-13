@@ -16,7 +16,7 @@ export default function CartCard() {
   const subtotal = cart.reduce((acc, item) => acc + item.price, 0);
 
   return (
-    <div className="absolute bottom-6 right-6 z-20 flex max-h-[45vh] w-[360px] flex-col border border-green-500/50 bg-zinc-950/[0.96] font-chakra shadow-[0_20px_40px_rgba(0,0,0,0.55)]">
+    <div className="absolute bottom-6 right-6 z-20 flex max-h-[45vh] w-[360px] flex-col border border-green-500/50 bg-zinc-950/[0.96] font-sans shadow-[0_20px_40px_rgba(0,0,0,0.55)]">
       <div className="flex flex-none items-center justify-between border-b border-tacoma-cardline px-[18px] py-3">
         <span className="font-mono text-[10px] tracking-[0.16em] text-green-400">
           {fr.cart.title}

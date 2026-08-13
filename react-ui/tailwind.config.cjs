@@ -12,19 +12,21 @@ module.exports = {
         tacoma: {
           red: '#e63535',
           redhover: '#ff6a6a',
-          paper: '#f4ede0',
+          paper: '#ffffff',
           ink: '#151210',
           ink2: '#1a1512',
           card: '#1a1815',
           cardline: '#2c2822',
           slot: '#3a352d',
           gold: '#c9a25f',
-          goldmuted: '#8a7d5f',
-          cream: '#cfc4b2',
-          mut1: '#9a8f81',
-          mut2: '#7a6f66',
-          mut3: '#6b6157',
-          mut4: '#5c554c',
+          goldmuted: '#b09a6e',
+          // Text ramp — readability first: white body text, neutral greys below it.
+          // Every step clears 4.5:1 on zinc-950 (mut3, the weakest, sits at 6:1).
+          cream: '#f2f2f4',
+          mut1: '#c8c6c2',
+          mut2: '#a8a49e',
+          mut3: '#8d8880',
+          mut4: '#74706a',
           bg1: '#0d0c0e',
           bg2: '#0a090b',
           // ps-housing only: search field ground + furniture thumbnail stripes.
@@ -34,7 +36,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        chakra: ['"Chakra Petch"', 'sans-serif'],
+        sans: ['Roboto', 'system-ui', 'sans-serif'],
         kanit: ['Kanit', 'sans-serif'],
         mono: ['"Space Mono"', 'monospace'],
         michroma: ['Michroma', 'sans-serif'],

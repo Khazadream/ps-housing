@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Kanit:wght@100;200;400;500;600&family=Michroma&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Kanit:wght@100;200;400;500;600&family=Michroma&family=Space+Mono:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -31,9 +31,9 @@ body,
   width: 100vw;
   overflow: hidden;
   background: transparent;
-  font-family: "Chakra Petch", sans-serif;
+  font-family: "Roboto", system-ui, sans-serif;
   font-size: 16px;
-  color: #cfc4b2;
+  color: #f2f2f4;
   -webkit-font-smoothing: antialiased;
 }
 
