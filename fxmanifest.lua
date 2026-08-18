@@ -21,6 +21,8 @@ shared_script {
   "shared/config.lua",
   "shared/framework.lua",
 }
+-- Echelle NUI : relaie la preference joueur (TACOMA_DESIGN_SYSTEM.md, s.15)
+client_script '@evange-core/client/uiscale_relay.lua'
 
 client_script {
   'client/shell.lua',

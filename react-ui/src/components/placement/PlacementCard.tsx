@@ -107,7 +107,7 @@ export default function PlacementCard() {
   }
 
   return (
-    <div className="tacoma-scroll absolute right-6 top-6 z-20 flex max-h-[calc(100vh-48px)] w-[330px] flex-col overflow-y-auto border border-tacoma-cream bg-zinc-950/[0.96] font-sans">
+    <div className="tacoma-scroll absolute right-6 top-6 z-20 flex max-h-[calc(var(--vh)*100-48px)] w-[330px] flex-col overflow-y-auto border border-tacoma-cream bg-zinc-950/[0.96] font-sans">
       {/* Header */}
       <div className="flex flex-col gap-[3px] border-b border-tacoma-cardline px-[18px] py-4">
         <span className="font-mono text-[10px] tracking-[0.16em] text-tacoma-cream">

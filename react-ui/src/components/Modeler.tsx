@@ -159,7 +159,7 @@ export default function Modeler() {
   if (!show) return null;
 
   return (
-    <div className="absolute inset-0 z-0 h-screen w-screen">
+    <div className="absolute inset-0 z-0">
       <Canvas camera={{ fov: 45 }}>
         <Scene />
       </Canvas>

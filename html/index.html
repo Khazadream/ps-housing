@@ -4,6 +4,101 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ps-housing</title>
+  <!-- TACOMA-UISCALE v1 · échelle NUI · doc : claude_documentation/TACOMA_DESIGN_SYSTEM.md § 15
+       Bloc IDENTIQUE dans toutes les UI. Seules les quatre constantes du haut sont
+       réglables par page ; `node tools/check-uiscale.mjs` vérifie le reste au byte.
+       Copie de référence : tools/ui-scale.snippet.html — ne jamais éditer une copie. -->
+  <script>
+  (function () {
+    var BASE_H       = 1080;  // hauteur du repère de référence
+    var DEFAULT_PREF = 1;     // MIROIR de DEFAULT dans evange-core/client/cl_uiscale.lua
+    var RES          = true;  // false = page DÉJÀ écrite en vh (ox_inventory, ps-dispatch)
+    var PAGE         = 1;     // 1080 / hauteur de maquette ; 1 hors Stage
+    var MIN_W        = 0;     // largeur de maquette à ne jamais rogner ; 0 = libre
+
+    var MIN = 0.5, MAX = 4, pref = DEFAULT_PREF, last = -1;
+    var root = document.documentElement;
+
+    // Le CEF de FiveM change de comportement d'une version de Chromium à l'autre :
+    // on MESURE au lieu de supposer. Renvoie le facteur entre l'espace de
+    // getBoundingClientRect() et l'espace de mise en page — 1 si les deux coïncident,
+    // k si les rects sont multipliés par le zoom. Publié en `window.__uiRectScale`
+    // pour tout code qui relit un rect et le réécrit dans une longueur (§ 15.2).
+    function measureRectScale() {
+      var d = document.createElement('div');
+      d.style.cssText = 'position:fixed;top:0;left:0;width:100px;height:100px;' +
+                        'visibility:hidden;pointer-events:none';
+      root.appendChild(d);
+      var s = d.getBoundingClientRect().height / 100;
+      root.removeChild(d);
+      return (s > 0.01) ? s : 1;
+    }
+
+    function apply() {
+      var W = window.innerWidth, H = window.innerHeight;
+
+      var k = (RES ? H / BASE_H : 1) * pref * PAGE;
+      if (MIN_W) k = Math.min(k, W / MIN_W);
+      k = Math.min(MAX, Math.max(MIN, k));
+      if (Math.abs(k - last) < 0.0005) return;
+      last = k;
+
+      // NOMBRE NU, jamais calc() ni var() : c'est la limitation que documentait
+      // evange-hud/html/src/index.css pour scale(), contournée en écrivant depuis JS.
+      root.style.zoom = k;
+
+      // Une page NUI ne défile JAMAIS au niveau du document : c'est une couche
+      // transparente par-dessus le jeu, et une barre de défilement s'y afficherait
+      // par-dessus tout le reste, y compris par-dessus les autres pages. Vingt des
+      // vingt-cinq pages le déclaraient déjà dans leur CSS ; on le rend universel
+      // plutôt que de dépendre du soin de chacune.
+      root.style.overflow = 'hidden';
+
+      // Dépingler avant de mesurer, sinon on relit notre propre valeur.
+      root.style.width = '';
+      root.style.height = '';
+
+      // À k = 1 il n'y a rien à corriger, et la mesure ne saurait pas trancher : les
+      // deux candidats sont égaux. On s'abstient — le rendu 1080p doit rester
+      // exactement ce qu'il était, épingler un repère y serait un changement gratuit.
+      if (k !== 1) {
+        // Le bloc initial contenant suit-il le zoom ? S'il le suit, `100vh` vaut déjà
+        // un écran et il n'y a rien à faire. Sinon le repère déborderait de k, et on
+        // le ramène à exactement un écran.
+        var viewportAware = Math.abs(root.clientHeight - H / k) < Math.abs(root.clientHeight - H);
+        if (!viewportAware) {
+          root.style.width = (W / k) + 'px';
+          root.style.height = (H / k) + 'px';
+        }
+      }
+
+      // Un écran, exprimé dans l'espace de mise en page : H/k, quel que soit le
+      // verdict ci-dessus. `calc(var(--vh)*74)` vaut donc 74 % de l'écran dans les
+      // deux cas, là où `74vh` n'est juste que si le CEF ajuste son bloc conteneur.
+      root.style.setProperty('--ui-scale', k);
+      root.style.setProperty('--vh', H / k / 100 + 'px');
+      root.style.setProperty('--vw', W / k / 100 + 'px');
+
+      window.__uiScale = k;
+      window.__uiRectScale = measureRectScale();
+    }
+
+    window.__uiScalePref = function (p) {
+      p = Number(p);
+      if (!isFinite(p) || p <= 0 || p === pref) return;
+      pref = p; last = -1; apply();
+    };
+
+    // SendNUIMessage arrive ici. Aucune ligne de React, Svelte ou Vue n'est requise.
+    window.addEventListener('message', function (e) {
+      var d = e && e.data;
+      if (d && d.type === 'ui:scale') window.__uiScalePref(d.pref);
+    });
+    window.addEventListener('resize', apply);
+
+    apply();
+  })();
+  </script>
     <script type="module" crossorigin src="./index.js"></script>
     <link rel="stylesheet" crossorigin href="./index.css">
   </head>
